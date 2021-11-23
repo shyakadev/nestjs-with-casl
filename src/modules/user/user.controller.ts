@@ -1,5 +1,13 @@
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import JwtAuthGuard from 'src/modules/auth/guards/jwt-aut.guard';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 
@@ -14,6 +22,7 @@ export class UserController {
     return user.firstName;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiResponse({

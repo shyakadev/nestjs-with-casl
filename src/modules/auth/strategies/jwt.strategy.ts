@@ -1,11 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { RoleType } from '../../common/constants/role-type';
-import { TokenType } from '../../common/constants/token-type';
-import { ApiConfigService } from '../../shared/services/api-config.service';
-import { UserEntity } from '../user/user.entity';
-import { UserService } from '../user/user.service';
+import { ApiConfigService } from '../../../shared/services/api-config.service';
+import { UserEntity } from '../../user/user.entity';
+import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -19,18 +17,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(args: {
-    userId: string;
-    roleType: RoleType;
-    tokenType: TokenType;
-  }): Promise<UserEntity> {
-    if (args.tokenType !== TokenType.ACCESS_TOKEN) {
+  async validate(payload: any): Promise<UserEntity> {
+    if (!payload) {
       throw new UnauthorizedException();
     }
 
     const user = await this.userService.findOne({
-      id: args.userId,
-      roleType: args.roleType,
+      id: payload.id,
     });
 
     if (!user) {

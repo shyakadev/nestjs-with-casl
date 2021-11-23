@@ -2,7 +2,6 @@ import * as bcrypt from 'bcrypt';
 import { Optional } from '../types';
 export class UtilsProvider {
   static async generateHash(password: string): Promise<string> {
-    console.log(await bcrypt.hashSync(password, 10));
     return await bcrypt.hashSync(password, 10);
   }
 
