@@ -1,10 +1,10 @@
-import { Constructor } from '../../types';
+import { Constructor } from '../../../types';
 import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { BaseDto } from '../dto/base.dto';
+import { BaseDto } from '../../dto/base.dto';
 
 export abstract class BaseEntity<DTO extends BaseDto = BaseDto, O = never> {
   @PrimaryGeneratedColumn('uuid')

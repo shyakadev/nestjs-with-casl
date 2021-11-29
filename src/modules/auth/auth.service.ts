@@ -4,10 +4,11 @@ import { UserNotFoundException } from '../../exceptions/user-not-found.exception
 import { UtilsProvider } from '../../providers/utils.provider';
 import { ApiConfigService } from '../../shared/services/api-config.service';
 import { UserDto } from '../user/dto/user-dto';
-import { UserEntity } from '../user/user.entity';
+import { UserEntity } from '../../common/entity/user.entity';
 import { UserService } from '../user/user.service';
 import { TokenPayloadDto } from './dto/token-payload.dto';
 import { UserLoginDto } from './dto/user-login.dto';
+import { PermissionDto } from './dto/permission.dto';
 
 @Injectable()
 export class AuthService {
@@ -38,5 +39,9 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async findAllPermissionsOfUser(userId: string): Promise<PermissionDto[]> {
+    return await this.userService.findAllPermisions(userId);
   }
 }

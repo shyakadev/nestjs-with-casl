@@ -1,5 +1,5 @@
 import { BaseDto } from '../common/dto/base.dto';
-import { BaseEntity } from '../common/entity/base.entity';
+import { BaseEntity } from '../common/entity/common/base.entity';
 import { Constructor } from '../types';
 
 export function UseDto(

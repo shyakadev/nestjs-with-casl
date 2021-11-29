@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FindConditions } from 'typeorm';
 import { UserRegisterDto } from '../auth/dto/user-register.dto';
-import { UserEntity } from './user.entity';
+import { UserEntity } from '../../common/entity/user.entity';
 import { UserRepository } from './user.repository';
+import { PermissionDto } from '../auth/dto/permission.dto';
 
 @Injectable()
 export class UserService {
@@ -48,7 +49,23 @@ export class UserService {
   }
 
   async createUser(userRegisterDto: UserRegisterDto): Promise<UserEntity> {
-    const user = this.userRepository.create(userRegisterDto);
-    return this.userRepository.save(user);
+    try {
+      const user = this.userRepository.create(userRegisterDto);
+      return await this.userRepository.save(user);
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_ACCEPTABLE,
+          error: 'Unique key violation ' + error,
+        },
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+  }
+
+  async findAllPermisions(userId: string): Promise<PermissionDto[]> {
+    return await this.userRepository.query(
+      `SELECT permisions.*, objects.name FROM users LEFT JOIN role_permissions on role_permissions.roleId = users.roleId LEFT JOIN permisions on role_permissions.permissionId = permisions.id LEFT JOIN objects on permisions.objectId = objects.id WHERE users.id='${userId}'`,
+    );
   }
 }

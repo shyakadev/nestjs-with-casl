@@ -1,6 +1,5 @@
 import { define } from 'typeorm-seeding';
-import { RoleType } from '../../common/constants/role-type';
-import { UserEntity } from '../../modules/user/user.entity';
+import { UserEntity } from '../../common/entity/user.entity';
 
 define(UserEntity, (faker) => {
   const firstName = faker.name.firstName();
@@ -11,7 +10,6 @@ define(UserEntity, (faker) => {
   user.firstName = firstName;
   user.lastName = lastName;
   user.email = email;
-  user.roleType = RoleType.STAFF;
   user.password = '12345678';
 
   return user;

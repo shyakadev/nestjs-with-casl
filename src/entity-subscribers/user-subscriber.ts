@@ -1,4 +1,4 @@
-import { UserEntity } from '../modules/user/user.entity';
+import { UserEntity } from '../common/entity/user.entity';
 import { UtilsProvider } from '../providers/utils.provider';
 import {
   EntitySubscriberInterface,
