@@ -8,7 +8,6 @@ import { UserEntity } from '../../common/entity/user.entity';
 import { UserService } from '../user/user.service';
 import { TokenPayloadDto } from './dto/token-payload.dto';
 import { UserLoginDto } from './dto/user-login.dto';
-import { PermissionDto } from './dto/permission.dto';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +20,7 @@ export class AuthService {
   async createToken(user: UserEntity | UserDto): Promise<TokenPayloadDto> {
     return new TokenPayloadDto({
       expiresIn: this.configService.authConfig.jwtExpirationTime,
-      accessToken: await this.jwtService.signAsync({ id: user.id }),
+      accessToken: await this.jwtService.signAsync({ ...user }),
     });
   }
 
@@ -39,9 +38,5 @@ export class AuthService {
     }
 
     return user;
-  }
-
-  async findAllPermissionsOfUser(userId: string): Promise<PermissionDto[]> {
-    return await this.userService.findAllPermisions(userId);
   }
 }

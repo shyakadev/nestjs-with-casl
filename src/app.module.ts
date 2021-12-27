@@ -9,6 +9,7 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { PermissionsGuard } from './modules/auth/guards/permissions.guard';
+import { RolePermissionModule } from './modules/role-permission/role-permission.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { PermissionsGuard } from './modules/auth/guards/permissions.guard';
     SharedModule,
     UserModule,
     AuthModule,
+    RolePermissionModule,
   ],
   controllers: [AppController],
   providers: [

@@ -3,14 +3,21 @@ import { FindConditions } from 'typeorm';
 import { UserRegisterDto } from '../auth/dto/user-register.dto';
 import { UserEntity } from '../../common/entity/user.entity';
 import { UserRepository } from './user.repository';
-import { PermissionDto } from '../auth/dto/permission.dto';
+import { RolePermissionService } from '../role-permission/role-permission.service';
+import { PermissionEntity } from '../../common/entity/permission.entity';
 
 @Injectable()
 export class UserService {
-  constructor(public userRepository: UserRepository) {}
+  constructor(
+    public userRepository: UserRepository,
+    private rolePermissionService: RolePermissionService,
+  ) {}
 
   findOne(conditions: FindConditions<UserEntity>): Promise<UserEntity> {
-    return this.userRepository.findOne(conditions);
+    return this.userRepository.findOne({
+      where: conditions,
+      relations: ['role'],
+    });
   }
 
   async findByUsernameOrEmail(
@@ -63,9 +70,7 @@ export class UserService {
     }
   }
 
-  async findAllPermisions(userId: string): Promise<PermissionDto[]> {
-    return await this.userRepository.query(
-      `SELECT permisions.*, objects.name FROM users LEFT JOIN role_permissions on role_permissions.roleId = users.roleId LEFT JOIN permisions on role_permissions.permissionId = permisions.id LEFT JOIN objects on permisions.objectId = objects.id WHERE users.id='${userId}'`,
-    );
+  async findAllPermissionsOfUser(roleId: number): Promise<PermissionEntity[]> {
+    return await this.rolePermissionService.getRolePermissions(roleId);
   }
 }

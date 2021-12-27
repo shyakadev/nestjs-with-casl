@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { configSwagger } from './config-swagger';
@@ -12,6 +13,7 @@ async function bootstrap() {
   if (configService.documentationEnabled) {
     configSwagger(app);
   }
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(port);
 }
 bootstrap();

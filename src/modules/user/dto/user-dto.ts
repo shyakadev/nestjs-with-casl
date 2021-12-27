@@ -16,10 +16,18 @@ export class UserDto extends BaseDto {
   @ApiPropertyOptional({ enum: TicketCategory })
   ticketCategory: TicketCategory;
 
+  @ApiProperty()
+  role: number;
+
+  @ApiProperty()
+  roleName: string;
+
   constructor(user: UserEntity) {
     super(user);
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.email = user.email;
+    this.role = user.role.id;
+    this.roleName = user.role.name;
   }
 }

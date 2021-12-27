@@ -51,7 +51,6 @@ export class PermissionsGuard implements CanActivate {
         token.replace('Bearer ', ''),
       );
       if (verified.exp < currentTimeStamp) throw new UnauthorizedException();
-
       return verified;
     } catch {
       throw new UnauthorizedException();

@@ -1,5 +1,5 @@
 import { CustomDecorator, SetMetadata } from '@nestjs/common';
-import { RequiredPermission } from 'src/types';
+import { RequiredPermission } from '../types';
 
 export const PERMISSION_CHECKER_KEY = 'permission_checker_params_key';
 export const CheckPermissions = (

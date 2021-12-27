@@ -2,9 +2,9 @@ import { Ability } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { AppAbility, PermissionObjectType } from '../../../types';
 import { PermissionAction } from '../../../common/constants/permission-action';
-import { UserEntity } from '../../../common/entity/user.entity';
-import { AuthService } from '../auth.service';
-import { PermissionDto } from '../dto/permission.dto';
+import { UserDto } from '../../../modules/user/dto/user-dto';
+import { PermissionEntity } from '../../../common/entity/permission.entity';
+import { UserService } from 'src/modules/user/user.service';
 
 interface CaslPermission {
   action: PermissionAction;
@@ -13,15 +13,15 @@ interface CaslPermission {
 
 @Injectable()
 export class CaslAbilityFactory {
-  constructor(private authService: AuthService) {}
+  constructor(private userService: UserService) {}
 
-  async createForUser(user: UserEntity): Promise<AppAbility> {
-    const dbPermissions: PermissionDto[] =
-      await this.authService.findAllPermissionsOfUser(user.id);
+  async createForUser(user: UserDto): Promise<AppAbility> {
+    const dbPermissions: PermissionEntity[] =
+      await this.userService.findAllPermissionsOfUser(user.role);
     const caslPermissions: CaslPermission[] = dbPermissions.map(
       (permission) => ({
         action: permission.action,
-        subject: permission.name,
+        subject: permission.object,
       }),
     );
     return new Ability<[PermissionAction, PermissionObjectType]>(
