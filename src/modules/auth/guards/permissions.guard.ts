@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
+import { IS_PUBLIC_KEY } from '../../../decorators/public.decorator';
 import { PERMISSION_CHECKER_KEY } from '../../../decorators/check-permissions.decorator';
 import { AppAbility, RequiredPermission } from '../../../types';
 import { CaslAbilityFactory } from '../casl/casl-ability.factory';

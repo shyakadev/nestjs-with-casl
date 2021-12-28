@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FindConditions } from 'typeorm';
-import { UserRegisterDto } from '../auth/dto/user-register.dto';
+import { UserRegisterDto } from '../../common/dto/user-register.dto';
 import { UserEntity } from '../../common/entity/user.entity';
 import { UserRepository } from './user.repository';
 import { RolePermissionService } from '../role-permission/role-permission.service';
