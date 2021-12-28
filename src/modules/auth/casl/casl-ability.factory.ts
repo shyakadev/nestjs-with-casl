@@ -2,9 +2,9 @@ import { Ability } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { AppAbility, PermissionObjectType } from '../../../types';
 import { PermissionAction } from '../../../common/constants/permission-action';
-import { UserDto } from '../../../modules/user/dto/user-dto';
+import { UserDto } from '../../../common/dto/user-dto';
 import { PermissionEntity } from '../../../common/entity/permission.entity';
-import { UserService } from 'src/modules/user/user.service';
+import { UserService } from '../../../modules/user/user.service';
 
 interface CaslPermission {
   action: PermissionAction;

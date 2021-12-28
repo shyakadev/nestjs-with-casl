@@ -1,7 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { TicketCategory } from '../../../common/constants/ticket-category';
-import { BaseDto } from '../../../common/dto/base.dto';
-import { UserEntity } from '../../../common/entity/user.entity';
+import { BaseDto } from './base.dto';
+import { UserEntity } from '../entity/user.entity';
 
 export class UserDto extends BaseDto {
   @ApiPropertyOptional()
@@ -12,9 +11,6 @@ export class UserDto extends BaseDto {
 
   @ApiProperty()
   email: string;
-
-  @ApiPropertyOptional({ enum: TicketCategory })
-  ticketCategory: TicketCategory;
 
   @ApiProperty()
   role: number;

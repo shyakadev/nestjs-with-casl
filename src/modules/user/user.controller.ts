@@ -1,8 +1,8 @@
 import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ObjectName } from 'src/common/constants/object-name';
-import { PermissionAction } from 'src/common/constants/permission-action';
-import { CheckPermissions } from 'src/decorators/check-permissions.decorator';
+import { ObjectName } from '../../common/constants/object-name';
+import { PermissionAction } from '../../common/constants/permission-action';
+import { CheckPermissions } from '../../decorators/check-permissions.decorator';
 import { PermissionEntity } from '../../common/entity/permission.entity';
 import { UserEntity } from '../../common/entity/user.entity';
 import { UserService } from './user.service';

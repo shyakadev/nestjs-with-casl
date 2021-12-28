@@ -44,13 +44,28 @@ export class RolePermissionService {
     permissionsDto: PermissionDto[],
     roleId,
   ): Promise<PermissionDto[]> {
-    permissionsDto.map((permission) => {
-      const permissionDto = this.permissionRepository.create({
+    permissionsDto.map(async (permission) => {
+      const permissionEntity = this.permissionRepository.create({
         ...permission,
         role: roleId,
       });
-      this.permissionRepository.save(permissionDto);
+
+      (await this.permissionExist(permissionEntity))
+        ? ''
+        : this.permissionRepository.save(permissionEntity);
     });
     return permissionsDto;
+  }
+
+  async permissionExist(permissionEntity: PermissionEntity): Promise<boolean> {
+    const permission = await this.permissionRepository.find({
+      where: {
+        role: permissionEntity.role,
+        action: permissionEntity.action,
+        object: permissionEntity.object,
+      },
+    });
+
+    return permission.length > 0 ? true : false;
   }
 }

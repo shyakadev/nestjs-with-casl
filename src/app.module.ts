@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { SharedModule } from './shared/shared.module';
 import { ApiConfigService } from './shared/services/api-config.service';
@@ -16,16 +14,6 @@ import { RolePermissionModule } from './modules/role-permission/role-permission.
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: 'localhost',
-    //   port: 3306,
-    //   username: 'root',
-    //   password: '',
-    //   database: 'user-support',
-    //   entities: [],
-    //   synchronize: true,
-    // }),
     TypeOrmModule.forRootAsync({
       imports: [SharedModule],
       useFactory: (configService: ApiConfigService) =>
@@ -37,9 +25,7 @@ import { RolePermissionModule } from './modules/role-permission/role-permission.
     AuthModule,
     RolePermissionModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: PermissionsGuard,

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber } from 'class-validator';
 import { ObjectName } from '../constants/object-name';
 import { PermissionAction } from '../constants/permission-action';
 
@@ -19,4 +19,7 @@ export class PermissionDto {
   @IsNotEmpty()
   @IsEnum(ObjectName)
   object: ObjectName;
+
+  @IsNumber()
+  role: number;
 }
