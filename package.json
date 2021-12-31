@@ -48,12 +48,12 @@
     "passport-jwt": "^4.0.0",
     "rimraf": "^3.0.2",
     "rxjs": "^7.4.0",
-    "swagger-ui-express": "^4.1.6",
+    "swagger-ui-express": "^4.3.0",
     "typeorm": "^0.2.38"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.1.5",
-    "@nestjs/testing": "^7.6.15",
+    "@nestjs/testing": "^8.2.4",
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.11",
     "@types/faker": "^5.5.9",

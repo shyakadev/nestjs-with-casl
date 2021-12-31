@@ -1,4 +1,12 @@
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ObjectName } from '../../common/constants/object-name';
 import { PermissionAction } from '../../common/constants/permission-action';
@@ -8,6 +16,7 @@ import { UserEntity } from '../../common/entity/user.entity';
 import { UserService } from './user.service';
 
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 @ApiTags('users')
 export class UserController {
   constructor(private userService: UserService) {}

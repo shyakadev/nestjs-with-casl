@@ -9,7 +9,7 @@ import { PermissionEntity } from '../../common/entity/permission.entity';
 @Injectable()
 export class UserService {
   constructor(
-    public userRepository: UserRepository,
+    private userRepository: UserRepository,
     private rolePermissionService: RolePermissionService,
   ) {}
 
@@ -46,7 +46,7 @@ export class UserService {
   }
 
   async getUser(userId: string): Promise<UserEntity> {
-    const user = await this.userRepository.findOne({ id: userId });
+    const user = await this.findOne({ id: userId });
 
     if (!user) {
       throw new Error('User not found');
